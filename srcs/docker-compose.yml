@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      dockerfile: ./requirements/nginx/Dockerfile
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - wordpress
+    networks:
+      - my_network
+
+  wordpress:
+    build:
+      dockerfile: ./requirements/wordpress/Dockerfile
+    container_name: wordpress
+    restart: always
+    volumes:
+      - /home/rakhsas/data/wordpress_db:/var/lib/mysql
+      - /home/rakhsas/data/wordpress_files:/var/www/html/wp-content
+    depends_on:
+      - mariadb
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: example_root_password
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - my_network
+
+  mariadb:
+    build:
+      dockerfile: ./requirements/mariadb/Dockerfile
+    container_name: mariadb
+    restart: always
+    volumes:
+      - /home/rakhsas/data/mariadb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+    networks:
+      - my_network
+
+volumes:
+  wordpress_db:
+  wordpress_files:
+  mariadb_data:
+
+networks:
+  my_network:
