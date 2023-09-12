@@ -1,54 +1,69 @@
 version: "3.8"
 
-services:
-  nginx:
-    build:
-      dockerfile: ./requirements/nginx/Dockerfile
-    container_name: nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - wordpress
-    networks:
-      - my_network
-
-  wordpress:
-    build:
-      dockerfile: ./requirements/wordpress/Dockerfile
-    container_name: wordpress
-    restart: always
-    volumes:
-      - /home/rakhsas/data/wordpress_db:/var/lib/mysql
-      - /home/rakhsas/data/wordpress_files:/var/www/html/wp-content
-    depends_on:
-      - mariadb
-    environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: example_root_password
-      WORDPRESS_DB_NAME: wordpress
-    networks:
-      - my_network
-
-  mariadb:
-    build:
-      dockerfile: ./requirements/mariadb/Dockerfile
-    container_name: mariadb
-    restart: always
-    volumes:
-      - /home/rakhsas/data/mariadb_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-    networks:
-      - my_network
+networks:
+  net2:
+    name: net2
+    driver: bridge
 
 volumes:
-  wordpress_db:
-  wordpress_files:
-  mariadb_data:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rakhsas/data/wordpres
 
-networks:
-  my_network:
+  database:
+    name: database
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rakhsas/data/databas
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    restart: always
+    env_file: .env
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - net2
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    restart: always
+    env_file: .env
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - net2
+    depends_on:
+      - mariadb
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    restart: always
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - net2
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/
+    restart: always
+    depends_on:
+      - mariadb
+    networks:
+      - net2
+    ports:
+      - "8080:8080"
+
+

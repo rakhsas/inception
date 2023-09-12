@@ -1,6 +1,15 @@
-FROM nginx:latest
+FROM debian:buster
 
-COPY./.nginx.conf /etc/nginx/conf.d/default.conf
+RUN apt-get update -q
+RUN apt-get install -y nginx openssl
 
-EXPOSE 80
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/ssl/private/nginx.key \
+    -out /etc/ssl/certs/nginx.crt \
+    -subj "/C=RU/ST=Moscow/L=Moscow/O=School21/OU=Wave8/CN=rakhsas.42.fr"
+
+COPY ./conf/default etc/nginx/sites-enabled/default
+
 EXPOSE 443
+
+CMD ["nginx", "-g", "daemon off;"]

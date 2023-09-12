@@ -1,12 +1,11 @@
-FROM wordpress:latest
+FROM debian:buster
 
-WORKDIR /var/www/html
+RUN apt update; \
+    apt install -y php7.3 php-mysqli php-fpm mariadb-client curl sendmail
 
-COPY ./php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
+COPY ./conf /var/www/
 
+EXPOSE 9000
 
-#set the environment variables
-ENV WORDPRESS_DB_HOST=mariadb
-ENV WORDPRESS_DB_USER=root
-ENV WORDPRESS_DB_PASSWORD=example_root_password
-ENV WORDPRESS_DB_NAME=wordpress
+CMD ["bash", "/var/www/setup.sh"]
