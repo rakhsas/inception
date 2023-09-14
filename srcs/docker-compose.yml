@@ -12,7 +12,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/rakhsas/data/wordpres
+      device: /home/rakhsas/data/
 
   database:
     name: database
@@ -20,7 +20,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/rakhsas/data/databas
+      device: /home/rakhsas/data/
 
 services:
   mariadb:
