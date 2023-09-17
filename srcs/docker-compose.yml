@@ -26,12 +26,14 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
-    restart: always
+    #restart: always
     env_file: .env
     volumes:
       - database:/var/lib/mysql
     networks:
       - net2
+    ports:
+      - "3306:3306"
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/

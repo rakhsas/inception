@@ -10,7 +10,7 @@ define('DB_NAME', 'db1');
 define('DB_USER', 'rakhsas');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'rakhsas');
+define('DB_PASSWORD', 'helloworld');
 
 /** MySQL hostname */
 define('DB_HOST', 'mariadb');
