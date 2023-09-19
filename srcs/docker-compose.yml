@@ -67,14 +67,17 @@ services:
       - net2
     ports:
       - "8080:8080"
-  ftp:
-    container_name: ftp
+  ftp_server:
+    container_name: ftp_server
     build: ./requirements/bonus/ftp/
     restart: always
     depends_on:
       - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
     networks:
       - net2
+    env_file: .env
     ports:
       - "21:21"
 
