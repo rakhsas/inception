@@ -1,8 +1,7 @@
 #!/bin/bash
 
-echo "FTP_SERVER INSTALLATION BEGIN!!!"
-
-echo "pasv_address=$DOMAIN_NAME" >> /etc/vsftpd.conf
+# echo "" >> /etc/vsftpd.conf
+# echo "pasv_address=$DOMAIN_NAME" >> /etc/vsftpd.conf
 
 useradd $FTP_USER && echo "$FTP_USER:$FTP_USER_PASS" | chpasswd
 mkdir -p /home/$FTP_USER

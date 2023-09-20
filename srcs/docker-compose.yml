@@ -80,5 +80,13 @@ services:
     env_file: .env
     ports:
       - "21:21"
+  angular:
+    container_name: angular
+    build: ./requirements/bonus/angular/
+    restart: always
+    networks:
+      - net2
+    ports:
+      - "4200:4200"
 
 

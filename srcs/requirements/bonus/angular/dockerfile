@@ -1,0 +1,11 @@
+FROM debian:12
+
+RUN apt update
+
+RUN apt install -y nodejs npm
+
+COPY ./tools/setup.sh /
+
+EXPOSE 4200
+
+CMD ["bash", "setup.sh"]
