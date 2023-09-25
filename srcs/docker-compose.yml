@@ -88,5 +88,27 @@ services:
       - net2
     ports:
       - "4200:4200"
-
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis/
+    restart: always
+    networks:
+      - net2
+    ports:
+      - "6379:6379"
+    env_file: .env
+    volumes:
+      - wordpress:/var/www/html
+  grafana:
+    container_name: grafana
+    build: ./requirements/bonus/grafana/
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+    env_file: .env
+    ports:
+      - "3000:3000"
+    networks:
+      - net2
+    
 

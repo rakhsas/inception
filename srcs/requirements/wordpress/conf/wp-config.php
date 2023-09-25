@@ -3,17 +3,18 @@
  * @link https://wordpress.org/support/article/editing-wp-config-php/
  */
 
+
 /** The name of the database for WordPress */
-define('DB_NAME', 'db1');
+define('DB_NAME', getenv('DB_NAME')); 
 
 /** MySQL database username */
-define('DB_USER', 'rakhsas');
+define('DB_USER', getenv('DB_USER'));
 
 /** MySQL database password */
-define('DB_PASSWORD', 'helloworld');
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
 
 /** MySQL hostname */
-define('DB_HOST', 'mariadb');
+define('DB_HOST', getenv('DB_HOST'));
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -23,17 +24,17 @@ define('DB_COLLATE', '');
 
 //** Redis cache settings. */
 define('WP_CACHE', true);
-define('WP_CACHE_KEY_SALT', 'rakhsas.42.fr');
-define('WP_HOME', 'http://rakhsas.42.fr');
-define('WP_SITEURL', 'http://rakhsas.42.fr');
+define('WP_CACHE_KEY_SALT', getenv('DOMAIN_NAME'));
+define('WP_HOME', getenv('WORDPRESS_DOMAIN'));
+define('WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
 
 //** Try Redis container */
-// define('WP_REDIS_HOST', 'redis');
-// define('WP_REDIS_PORT', 6379);
-// define( 'WP_REDIS_PASSWORD', '$REDIS_PWD' );
-// define('WP_REDIS_TIMEOUT', 1);
-// define('WP_REDIS_READ_TIMEOUT', 1);
-// define('WP_REDIS_DATABASE', 0);
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+// define( 'WP_REDIS_PASSWORD', 'test' );
+define('WP_REDIS_TIMEOUT', 1);
+define('WP_REDIS_READ_TIMEOUT', 1);
+define('WP_REDIS_DATABASE', 0);
 
 
 /** Authentication Unique Keys and Salts.
@@ -53,8 +54,9 @@ define('WP_SITEURL', 'http://rakhsas.42.fr');
 $table_prefix = 'wp_';
 
 /** For developers: WordPress debugging mode. */
-define( 'WP_DEBUG', false );
-
+define( 'WP_DEBUG', true );
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );

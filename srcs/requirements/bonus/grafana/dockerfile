@@ -1,0 +1,21 @@
+FROM debian:12
+
+RUN apt update
+
+RUN apt install -y apt-transport-https software-properties-common wget supervisor 
+
+RUN mkdir -p /etc/apt/keyrings/
+
+RUN wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor |  tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+RUN echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" |  tee -a /etc/apt/sources.list.d/grafana.list
+
+RUN apt update -y
+
+RUN apt install -y grafana
+COPY ./tools/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./tools/setup.sh /
+
+EXPOSE 3000
+
+CMD ["bash", "setup.sh"]
