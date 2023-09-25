@@ -19,12 +19,7 @@
 [https://www.educative.io/blog/docker-compose-tutorial](https://www.educative.io/blog/docker-compose-tutorial)
 
 [https://gabrieltanner.org/blog/docker-compose](https://gabrieltanner.org/blog/docker-compose)
-Expand
-message.txt
-3 KB
-Website for Students
-Website for Students
-%sitename% creates the best tutorials for Linux, Ubuntu, Windows, WordPress and Open Source Content Management Systems (CMS).
+
 [https://www.tecmint.com/connect-nginx-to-php-fpm/](https://www.tecmint.com/connect-nginx-to-php-fpm/)
 
  [https://www.itzgeek.com/how-tos/linux/debian/how-to-install-wordpress-with-nginx-on-debian-11.html](https://www.itzgeek.com/how-tos/linux/debian/how-to-install-wordpress-with-nginx-on-debian-11.html)
