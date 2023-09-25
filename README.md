@@ -44,11 +44,4 @@ Website for Students
 [https://runnable.com/docker/basic-docker-networking](https://runnable.com/docker/basic-docker-networking)
 
 [https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction#system_containers](https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction#system_containers)
-ITzGeek
-Raj
-How to Install WordPress with Nginx and Let's Encrypt SSL on Debian...
-WordPress is the most popular website platform on the internet. It’s free, open-source, and works well with almost any web hosting service
-Image
-Zeste de Savoir
-Quelques erreurs lors d'un build • Forum • Zeste de Savoir
-Je suis en train de suivre l'introduction à Docker de la documentation Docker officielle et je suis arrivé à l'étape 2 d
+
