@@ -5,6 +5,7 @@ RUN apt update; \
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
 COPY ./conf /var/www/
+COPY ./tools /var/www/
 
 EXPOSE 9000
 

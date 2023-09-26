@@ -29,8 +29,8 @@ define('WP_HOME', getenv('WORDPRESS_DOMAIN'));
 define('WP_SITEURL', getenv('WORDPRESS_DOMAIN'));
 
 //** Try Redis container */
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_HOST', getenv('REDIS_HOST'));
+define('WP_REDIS_PORT', getenv('REDIS_PORT'));
 // define( 'WP_REDIS_PASSWORD', 'test' );
 define('WP_REDIS_TIMEOUT', 1);
 define('WP_REDIS_READ_TIMEOUT', 1);

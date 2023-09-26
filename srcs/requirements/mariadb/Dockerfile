@@ -16,7 +16,7 @@ RUN mkdir -p /var/log/mysql && \
 # RUN mysqld_safe --skip-grant-tables &
 # RUN /setup.sh
 
-COPY ./conf/setup.sh /
+COPY ./tools/setup.sh /
 RUN chmod +x ./setup.sh
 
 EXPOSE 3306

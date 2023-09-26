@@ -4,7 +4,7 @@ RUN apt update
 
 RUN apt install -y redis-server php-pear php-dev
 
-COPY ./conf/setup.sh /
+COPY ./tools/setup.sh /
 
 EXPOSE 6379
 

@@ -13,7 +13,7 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com 
 RUN apt update -y
 
 RUN apt install -y grafana
-COPY ./tools/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./tools/setup.sh /
 
 EXPOSE 3000
