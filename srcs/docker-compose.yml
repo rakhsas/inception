@@ -12,7 +12,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/rakhsas/data/
+      device: /home/rakhsas/data/wordpress/
 
   database:
     name: database
@@ -20,13 +20,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/rakhsas/data/
+      device: /home/rakhsas/data/database/
 
 services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/
-    #restart: always
+    restart: always
     env_file: .env
     volumes:
       - database:/var/lib/mysql
@@ -67,27 +67,27 @@ services:
       - net2
     ports:
       - "8080:8080"
-  ftp_server:
-    container_name: ftp_server
-    build: ./requirements/bonus/ftp/
-    restart: always
-    depends_on:
-      - wordpress
-    volumes:
-      - wordpress:/var/www/wordpress
-    networks:
-      - net2
-    env_file: .env
-    ports:
-      - "21:21"
-  angular:
-    container_name: angular
-    build: ./requirements/bonus/angular/
-    restart: always
-    networks:
-      - net2
-    ports:
-      - "4200:4200"
+  # ftp_server:
+  #   container_name: ftp_server
+  #   build: ./requirements/bonus/ftp/
+  #   restart: always
+  #   depends_on:
+  #     - wordpress
+  #   volumes:
+  #     - wordpress:/var/www/wordpress
+  #   networks:
+  #     - net2
+  #   env_file: .env
+  #   ports:
+  #     - "21:21"
+  # angular:
+  #   container_name: angular
+  #   build: ./requirements/bonus/angular/
+  #   restart: always
+  #   networks:
+  #     - net2
+  #   ports:
+  #     - "4200:4200"
   redis:
     container_name: redis
     build: ./requirements/bonus/redis/
@@ -99,15 +99,24 @@ services:
     env_file: .env
     volumes:
       - wordpress:/var/www/html
-  grafana:
-    container_name: grafana
-    build: ./requirements/bonus/grafana/
-    volumes:
-      - wordpress:/var/www/html
+  # grafana:
+  #   container_name: grafana
+  #   build: ./requirements/bonus/grafana/
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   restart: always
+  #   env_file: .env
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - net2
+  kibana:
+    container_name: kibana
+    build: ./requirements/bonus/kibana/
     restart: always
     env_file: .env
     ports:
-      - "3000:3000"
+      - "5601:5601"
     networks:
       - net2
     

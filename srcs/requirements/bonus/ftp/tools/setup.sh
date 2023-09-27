@@ -8,7 +8,7 @@ mkdir -p /home/$FTP_USER
 chown -R $FTP_USER:$FTP_USER /home/$FTP_USER
 chmod 755 /home/$FTP_USER
 
-echo "USER $FTP_USER CREATED WITH PASSWORD $FTP_USER_PASS";
+# echo "USER $FTP_USER CREATED WITH PASSWORD $FTP_USER_PASS";
 
 
 vsftpd /etc/vsftpd.conf

@@ -14,4 +14,5 @@ clean: down remove
 	docker compose -f srcs/docker-compose.yml down --rmi all
 
 remove:
-	sudo rm -rf ~/data/*
+	sudo rm -rf ~/data/database/*
+	sudo rm -rf ~/data/wordpress/*

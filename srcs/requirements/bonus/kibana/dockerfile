@@ -1,0 +1,21 @@
+FROM debian:12
+
+RUN apt update && apt install -y wget gpg
+
+RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+
+
+RUN apt install -y apt-transport-https
+
+RUN echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-8.x.list
+
+
+RUN apt update && apt install -y kibana
+
+COPY ./tools/setup.sh /
+
+RUN chmod +x ./setup.sh
+
+EXPOSE 5601
+
+CMD ["bash", "./setup.sh"]
