@@ -3,17 +3,13 @@
 echo -n "Installing WP-CLI..................................."
 
 wait_for_mariadb() {
-  until mysqladmin -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} ping; do
-    echo "Waiting for MariaDB to start..."
-    sleep 5
-  done
+    until mysqladmin -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} ping; do
+      echo "Waiting for MariaDB to start..."
+      sleep 5
+    done
   if [ ! -f /var/www/wordpress/wp-config.php ]; then
       chown -R www-data /var/www/wordpress
       chmod -R 775 /var/www/wordpress
-
-
-
-
       mkdir -p /run/php/
       touch /run/php/php8.2-fpm.pid
       curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -25,7 +21,7 @@ wait_for_mariadb() {
 
       mv /var/www/wp-config.php /var/www/wordpress/
       wp core install --allow-root --url=${DOMAIN_NAME} --title=${WORDPRESS_NAME} --admin_user=${WORDPRESS_ROOT_LOGIN} --admin_password=${WORDPRESS_ROOT_PASSWORD} --admin_email=${WORDPRESS_ROOT_EMAIL}
-      wp user create ${MYSQL_USER} ${WORDPRESS_USER_EMAIL} --user_pass=${MYSQL_PASSWORD} --role=author --allow-root
+      wp user create ${WORDPRESS_SECOND_USER} ${WORDPRESS_USER_EMAIL} --user_pass=${WORDPRESS_SECOND_USER_PASSWORD} --role=author --allow-root
 
       # chown -R www-data:www-data /var/www/wordpress/wp-content
       # chmod -R 755 /var/www/wordpress/wp-content

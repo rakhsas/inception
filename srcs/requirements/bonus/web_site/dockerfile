@@ -4,7 +4,7 @@ RUN apt update
 
 RUN apt install -y nodejs npm
 
-# RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli
 
 COPY ./tools/setup.sh /
 

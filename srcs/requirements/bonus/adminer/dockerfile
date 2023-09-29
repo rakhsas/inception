@@ -2,12 +2,8 @@ FROM debian:12
 
 RUN apt update
 RUN apt install -y wget
-RUN apt install -y php8-common php8-iconv php8-json php8-gd php8-curl php8-xml \
-	php8-imap php8-cgi fcgi php8-pdo php8-pdo_mysql php8-soap php8-xmlrpc \
-	php8-posix php8-mcrypt php8-gettext php8-ldap php8-ctype php8-dom php8 php8-fpm php8-opcache php8-session; \
-	rm -rf /var/cache/apk/*
 
-RUN apt install -y adminer php8.2 php-mysqli php-fpm php-mysql php-common php
+RUN apt install -y php8.2 php-mysqli php-fpm php-mysql php-common php
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
 
 RUn wget "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php"

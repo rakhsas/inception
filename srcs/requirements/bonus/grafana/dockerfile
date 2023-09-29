@@ -2,7 +2,7 @@ FROM debian:12
 
 RUN apt update
 
-RUN apt install -y apt-transport-https software-properties-common wget supervisor 
+RUN apt install -y apt-transport-https software-properties-common wget supervisor vim iputils-ping mariadb-client
 
 RUN mkdir -p /etc/apt/keyrings/
 

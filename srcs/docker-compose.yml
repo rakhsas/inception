@@ -1,8 +1,8 @@
 version: "3.8"
 
 networks:
-  net2:
-    name: net2
+  network:
+    name: network
     driver: bridge
 
 volumes:
@@ -24,6 +24,7 @@ volumes:
 
 services:
   mariadb:
+    image: mariadb
     container_name: mariadb
     build: ./requirements/mariadb/
     restart: always
@@ -31,10 +32,11 @@ services:
     volumes:
       - database:/var/lib/mysql
     networks:
-      - net2
+      - network
     ports:
       - "3306:3306"
   wordpress:
+    image: wordpress
     container_name: wordpress
     build: ./requirements/wordpress/
     restart: always
@@ -42,82 +44,81 @@ services:
     volumes:
       - wordpress:/var/www/wordpress
     networks:
-      - net2
+      - network
     depends_on:
       - mariadb
   nginx:
+    image: nginx
     container_name: nginx
     build: ./requirements/nginx/
     restart: always
     volumes:
       - wordpress:/var/www/wordpress
     networks:
-      - net2
+      - network
     depends_on:
       - wordpress
     ports:
       - "443:443"
   adminer:
+    image: adminer
     container_name: adminer
     build: ./requirements/bonus/adminer/
     restart: always
     depends_on:
       - mariadb
     networks:
-      - net2
+      - network
     ports:
       - "8080:8080"
-  # ftp_server:
-  #   container_name: ftp_server
-  #   build: ./requirements/bonus/ftp/
-  #   restart: always
-  #   depends_on:
-  #     - wordpress
-  #   volumes:
-  #     - wordpress:/var/www/wordpress
-  #   networks:
-  #     - net2
-  #   env_file: .env
-  #   ports:
-  #     - "21:21"
-  # angular:
-  #   container_name: angular
-  #   build: ./requirements/bonus/angular/
-  #   restart: always
-  #   networks:
-  #     - net2
-  #   ports:
-  #     - "4200:4200"
+  ftp_server:
+    image: ftp_server
+    container_name: ftp_server
+    build: ./requirements/bonus/ftp/
+    restart: always
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - network
+    env_file: .env
+    ports:
+      - "21:21"
+  web_site:
+    image: web_site
+    container_name: web_site
+    build: ./requirements/bonus/web_site/
+    restart: always
+    networks:
+      - network
+    ports:
+      - "4200:4200"
   redis:
+    image: redis
     container_name: redis
     build: ./requirements/bonus/redis/
     restart: always
     networks:
-      - net2
+      - network
     ports:
       - "6379:6379"
     env_file: .env
     volumes:
       - wordpress:/var/www/html
-  # grafana:
-  #   container_name: grafana
-  #   build: ./requirements/bonus/grafana/
-  #   volumes:
-  #     - wordpress:/var/www/html
-  #   restart: always
-  #   env_file: .env
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - net2
-  kibana:
-    container_name: kibana
-    build: ./requirements/bonus/kibana/
+  grafana:
+    image: grafana
+    container_name: grafana
+    build: ./requirements/bonus/grafana/
+    volumes:
+      - wordpress:/var/www/html
     restart: always
     env_file: .env
     ports:
-      - "5601:5601"
+      - "3000:3000"
     networks:
-      - net2
-    
+      - network
+    depends_on:
+      - mariadb
+
 

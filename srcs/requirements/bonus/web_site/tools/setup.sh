@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm install -g @angular/cli
+# npm install -g @angular/cli
 
 ng new static_web_page
 
